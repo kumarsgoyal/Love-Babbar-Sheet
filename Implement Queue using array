@@ -1,0 +1,35 @@
+class MyQueue {
+
+    int front, rear, count;
+    int limit = 100005;
+	int arr[] = new int[limit];
+
+    MyQueue() {
+		front = 0;
+		rear = 0;
+		count = 0;
+	}
+	
+	//Function to push an element x in a queue.
+	void push(int x) {
+	    if(count == limit) {
+	        return;
+	    }
+	    
+	    arr[rear] = x;
+	    count++;
+	    rear = ++rear % limit;
+	} 
+
+    //Function to pop an element from queue and return that element.
+	int pop() {
+		if(count == 0) {
+		    return -1;
+		}
+		
+		int result = arr[front];
+		count--;
+		front = ++front % limit;
+		return result;
+	} 
+}
