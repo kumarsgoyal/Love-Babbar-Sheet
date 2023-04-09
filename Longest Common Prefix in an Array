@@ -1,0 +1,35 @@
+class Solution{
+    String longestCommonPrefix(String arr[], int n){
+        int limit = 1001;
+        char[] prefix = new char[limit];
+        int result = limit;
+        
+        
+        for(int i = 0; i < arr[0].length(); i++) { 
+            prefix[i] = arr[0].charAt(i); 
+        } 
+        
+        for(int index = 1; index < arr.length; index++) {
+            int i = 0;
+            for(; i < arr[index].length() ; i++) {
+                if(prefix[i] != arr[index].charAt(i)) {
+                    result = Math.min(result, i);
+                    break;
+                }
+            }
+            
+            if(i == arr[index].length()) {
+                result = Math.min(result, arr[index].length());
+            }
+            
+        }
+        
+        if(result == 0) {  
+            prefix[0] = '-'; 
+            prefix[1] = '1'; 
+            result+=2; 
+        }
+            
+        return new String(prefix, 0, result);
+    }
+}
