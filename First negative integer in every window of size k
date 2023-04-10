@@ -1,0 +1,32 @@
+class Compute {
+    
+    public long[] printFirstNegativeInteger(long A[], int N, int K) {
+        Deque<Integer> deque = new LinkedList<>();
+        long[] res = new long[N - K + 1];
+        int index = 0;
+        
+        for(int i = 0; i< K; i++) {
+            if(A[i] < 0)
+                deque.addLast(i);
+        }
+        
+        for(int i = K; i < N; i++) {
+            if(deque.size() != 0) 
+                res[index++] = A[deque.getFirst()];
+            else
+                index++;
+                // res[index++] = 0;
+            
+            while(deque.size() != 0 && deque.getFirst() < (i - K + 1))
+                deque.removeFirst();
+            
+            if(A[i] < 0)
+                deque.addLast(i);
+        }
+        
+        if(deque.size() != 0)
+            res[index++] = A[deque.getFirst()];
+        
+        return res;
+    }
+}
