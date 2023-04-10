@@ -30,3 +30,32 @@ class Compute {
         return res;
     }
 }
+
+
+/*
+
+class Compute {
+    
+    public long[] printFirstNegativeInteger(long A[], int N, int K) {
+        long[] res = new long[N - K + 1];
+        int index = 0;
+        int firstNegativeIndex = 0;
+
+        
+        for(int i = K - 1; i < N; i++) {
+            while((firstNegativeIndex < i) && ( firstNegativeIndex < (i - K + 1) || A[firstNegativeIndex] >= 0)) {
+                firstNegativeIndex++;
+            }
+            
+            if (A[firstNegativeIndex] < 0)
+                res[index++] = A[firstNegativeIndex];
+            else 
+                res[index++] = 0;
+        }
+        
+        
+        return res;
+    }
+}
+
+*/
