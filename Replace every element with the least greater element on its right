@@ -1,0 +1,132 @@
+ Insertion sort method
+ Time complexity: O(nlogn) 
+ Time complexity: O(n^2) 
+ in case of sorted array 
+ Auxiliary Space: O(n)
+
+class Solution {
+    
+    static class BinarySearchTreeNode {
+        int val;
+        BinarySearchTreeNode left;
+        BinarySearchTreeNode right;
+        public BinarySearchTreeNode(int val) {
+            this.val = val;
+            this.left = this.right = null;
+        }
+    }
+    
+    private static BinarySearchTreeNode root;
+    private static BinarySearchTreeNode succ;
+    
+    public static ArrayList<Integer> findLeastGreater(int n, int[] arr) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        root = null;
+        
+        for(int i = n - 1; i >= 0; i--) {
+            succ = null;
+            root = insert(root, arr[i]);
+            
+            if(succ == null) 
+                res.add(-1);
+            else 
+                res.add(succ.val);
+        }
+        
+        Collections.reverse(res);
+        return res;
+    }
+    
+    private static BinarySearchTreeNode insert(BinarySearchTreeNode root, int num) {
+        if(root == null) {
+            return new BinarySearchTreeNode(num);
+        }
+        
+        if(root.val > num) {
+            succ = root;
+            root.left = insert(root.left, num);
+        }
+        else {
+            root.right = insert(root.right, num);
+        }
+        
+        return root;
+    }
+    
+}
+
+
+/*
+
+ naive method
+ Time complexity: O(n^2)
+ Auxiliary Space: O(1)
+
+class Solution {
+    public static ArrayList<Integer> findLeastGreater(int n, int[] arr) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        for(int i = 0; i < n; i++) {
+            int temp = Integer.MAX_VALUE;
+            for(int j = i + 1; j < n; j++) {
+                if(arr[j] > arr[i]) {
+                    temp = Math.min(arr[j], temp);
+                }
+            }
+            
+            if(temp != Integer.MAX_VALUE) 
+                res.add(temp);
+            else 
+                res.add(-1);
+        }
+        
+        return res;
+    }
+}
+        
+*/
+
+/*
+
+ Insertion sort method
+ Time complexity: O(n^2)
+ Auxiliary Space: O(1)
+
+class Solution {
+    public static ArrayList<Integer> findLeastGreater(int n, int[] arr) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        res.add(-1); // for last element
+        for(int i =  n - 2; i >= 0; i--) {
+            int index = sort(arr, i);
+            
+            if(index == n - 1) {
+                res.add(-1);
+            }
+            else {
+                res.add(arr[index + 1]);
+            }
+        }
+        
+        Collections.reverse(res);
+        
+        return res;
+    }
+    
+    private static int sort(int[] arr, int i) {
+        int temp = arr[i];
+        int n = arr.length;
+        while(i < (n - 1) && temp >= arr[i + 1]) {
+            arr[i] = arr[i + 1];
+            i++;
+        }
+        
+        arr[i] = temp;
+        return i;
+    }
+
+}
+      
+*/
+
+
