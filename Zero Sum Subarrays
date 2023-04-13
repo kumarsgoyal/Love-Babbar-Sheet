@@ -1,0 +1,53 @@
+
+
+class Solution{
+    //Function to count subarrays with sum equal to 0.
+    public static long findSubarray(long[] arr ,int n)  {
+        long count = 0;
+        long sum = 0;
+        HashMap<Long, Integer> map = new HashMap<> ();
+        
+        map.put(0l, 1);
+        for(int i = 0; i < n; i++) {
+            sum += arr[i];
+            
+            if(map.get(sum) != null) {
+                count += map.get(sum);
+                map.put(sum, map.get(sum) + 1);
+            }
+            else {
+                map.put(sum, 1);
+            }
+        }
+        
+        
+        return count;
+    }
+}
+
+
+
+/*
+
+Time Complexity: O(n^2) since we are using 2 loops.
+Auxiliary Space: O(1), as constant extra space is required.
+
+class Solution{
+    //Function to count subarrays with sum equal to 0.
+    public static long findSubarray(long[] arr ,int n)  {
+        long count = 0;
+        
+        for(int i = 0; i < n; i++) {
+            long sum = 0;
+            for(int j = i; j < n; j++) {
+                sum = sum + arr[j];
+                if(sum == 0)    
+                    count++;
+            }
+        }
+        
+        return count;
+    }
+}
+
+*/
