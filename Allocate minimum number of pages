@@ -1,0 +1,60 @@
+//User function Template for Java
+
+class Solution {
+    //Function to find minimum number of pages.
+    public static int findPages(int[] A, int N, int M) {
+        if(M > N)  
+            return -1;
+        return solve(A, M);
+    }
+    
+    private static int solve(int[] a, int m) {
+        long sum = 0;
+        long max = 0;
+        
+        for(int i : a) {
+            sum = sum + i;
+            max = (max < i) ? i : max;
+        }
+        
+        if(m == 1) 
+            return (int) sum;
+        
+        return solveUtil(a, m, max, sum);
+    }
+    
+    private static int solveUtil(int[] a, int m, long low, long high) {
+        int ans = -1;
+        while(low <= high) {
+            long mid = low + (high - low) / 2;
+            
+            if(isPossible(a, m, mid)) {
+                ans = (int) mid;
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        
+        return ans;
+    }
+    
+    private static boolean isPossible(int[] a, int m, long mid) {
+        long sum = 0, count = 1;
+        for(int i : a) {
+            if(( sum + i) <= mid) { 
+                sum += i;
+            }
+            else {
+                count++;
+                if(count > m || i > mid) 
+                    return false;
+                sum = i;
+            }
+        }
+        
+        return true;
+    }
+    
+};
